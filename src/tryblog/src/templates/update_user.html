@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% block content %}
+<div class="container">
+				<p> Профиль: <a class="navbar-brand" href="{% url 'cabinet' %}">{{ user.username }}</a></p>
+				<p>Здесь вы можете рассказать нам немного о себе</p>
+				<hr>
+			<form action="{% url 'update_user' %}" method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+			{{ form }}
+			<button class="btn btn-default" type="submit">Отправить</button>
+			</form>
+			</h4>
+</div>
+{% endblock %}

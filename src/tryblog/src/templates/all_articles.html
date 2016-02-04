@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+			{% for article in articles %}
+							<h4>Название статьи: <a href="/articles/get/{{ article.pk }}">
+							{{ article.title }}
+							</a></h4>
+							
+								<br>Добавлено: <a href="/users/get/{{ article.author.pk }}">
+									{{ article.author.username }} {% if not item.avatar %}
+									{% else %}<img src="{{ user.avatar.url }}" class="img-responsive img-circle" width="40px" height="40px" >{% endif %} 
+								</a></br>
+							<hr>
+		{% endfor %}
+			<p class="container">
+      <a href="{% url 'contactView' %}"><button class="btn btn-large btn-primary" type="button">Форма обратной связи</button></a>
+      </p>
+</div>
+
+{% endblock %}

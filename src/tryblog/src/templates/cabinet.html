@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% block content %}
+
+			<div class="conteiner">
+				<p> Профиль: <a class="navbar-brand" href="{% url 'cabinet' %}">{{ user.username }}</a></p>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="{% url 'update_user' %}">Изменить профиль</a></li>
+				</ul>
+			<div class="row">
+				<div class="col-md-3 align-center" style="width: 25%" >
+					{% for item in profile_user %}
+					{% if not item.avatar %}	
+					<h1>Без фотографии :(</h1>
+
+					{% else %}
+					<img src="{{ item.avatar.url }}" class="img-rounded" >
+					{% endif %}
+					{% endfor %}
+				</div>
+
+				<div class="col-md-9">	
+					<table class="table table-user-information">
+						<tbody>
+							{% for item in profile_user %}
+							{% if not item in profile_user %}
+							Нет информации
+							{% else %}
+							<tr>
+								<td>Имя:</td>
+								<td>{{ item.firstname }}</td>
+							</tr>
+							<tr>
+								<td>Фамилия:</td>
+								<td>{{ item.lastname }}</td>
+							</tr>
+							<tr>
+								<td>Email:</td>
+								<td>{{ item.email }}</td>
+							</tr>
+							<tr>
+								<td>Дата рождения:</td>
+								<td>{{ item.date_of_birth|date:"d / M / Y" }}</td>
+							</tr>
+				            <tr>
+								<td>О себе:</td>
+								<td>{{ item.about_user }}</td>
+							</tr>
+						</tbody>
+					</table>
+					</div>
+				</div>
+				</div>
+			</div>    
+{% endif %}
+{% endfor %}
+{% endblock %}

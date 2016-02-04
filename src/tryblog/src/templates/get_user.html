@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% block content %}
+
+<div class="col-md-8 col-md-offset-2">
+	<div class="row question-row">
+		<div class="col-md-8">
+			{% for item in profile_user %}
+			<div class="nav navbar-default user-nav-div">
+				<a class="navbar-brand" href="#">{{ item.username }}</a>
+			{% endfor %}
+			</div>
+			<div class="row">
+				<div class="col-md-3 align-center" >
+					{% for item in profile_user %}
+					{% if not item.avatar %}	
+					<h1>{% trans 'No avatar Here' %}</h1>
+					{% else %}
+					<img src="{{ item.avatar.url }}" class="img-responsive img-circle" >
+					{% endif %}
+					{% endfor %}
+
+
+					<div class="col-md-9">	
+					<table class="table table-user-information">
+						<tbody>
+							{% for item in profile_user %}
+							{% if not item %}
+							{% trans 'no information here' %}
+							{% else %}
+							<tr>
+								<td>{% trans 'firstname:' %}</td>
+								<td>{{ item.firstname }}</td>
+							</tr>
+							<tr>
+								<td>{% trans 'lastname:' %}</td>
+								<td>{{ item.lastname }}</td>
+							</tr>
+							<tr>
+								<td>{% trans 'age (y):' %}</td>
+								<td>{{ item.age }}</td>
+							</tr>
+							<tr>
+								<td>{% trans 'date of birth:' %}</td>
+								<td>{{ item.date_of_birth|date:"d/M/Y" }}</td>
+							</tr>
+						</tbody>
+					</table>
+					<blockquote>{{item.about_user}}</blockquote>
+					{% endif %}
+				</div>
+				</div>
+
+				</div>    
+	</div>	
+</div>
+{% endfor %}
+
+{% endblock %}

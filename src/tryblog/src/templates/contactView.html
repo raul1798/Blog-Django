@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+
+{% block contactView %}
+<form action="/articles/contact/" method="post">{% csrf_token %}
+    {{ form.non_field_errors }}
+	<div>
+	  <label for="id_subject"><h4>Тема:</h4></label>
+	  {{ form.subject.errors }}
+	  {{ form.subject }}
+	</div>
+	<div>
+	  <label for="id_sender"><h4>E-mail:</h4></label>
+	  {{ form.sender.errors }}
+	  {{ form.sender }}
+	</div>
+	<div>
+	  <label for="id_message"><h4>Сообщение:</h4></label>
+	  {{ form.message.errors }}
+	  {{ form.message }}
+	</div>
+	<div>
+	  {{ form.copy.errors }}
+	  <label for="id_copy"><h4>Отправить копию себе {{ form.copy }}</h4></label>
+	</div>
+	<input type="submit" value="Отправить"/>
+</div>
+{% endblock %}

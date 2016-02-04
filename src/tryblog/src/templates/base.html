@@ -1,0 +1,51 @@
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="{% static "css/bootstrap.css" %}" type="text/css" media="all">
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+     <style>
+            body {
+                padding-top: 80px; /* 60px to make the container go all the way to the bottom of the topbar */
+            }
+            .right {
+                float: right;
+            }
+        </style>
+    <title>Blog</title>
+</head>
+
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <div class="brand"><a href ="/">My Blog</a></div>
+             <ul class="right">
+             {% if user.is_authenticated %}                                       
+                <li><a href="{% url 'auth_logout' %}">Выйти ({{ user.username }}
+                <img src="{{ user.avatar.url }}" class="img-responsive img-circle" width="40px" height="40px" > )</a></li>
+                <li><a href="{% url 'auth_password_change' %}">Изменить пароль</a></li>
+            {% else %}
+                <li><a href="{% url 'auth_login' %}">Войти</a></li>
+            {% endif %}
+            </ul>
+            <ul class="nav">
+                <li><a href="{% url 'all_articles' %}" class="">Список постов</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'cabinet' %}">Ваш профиль</a></li>
+                <li><a href="{% url 'article' %}">Написать статью</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+
+</div>
+    <div class="container">
+    {% block content %}{% endblock %}
+     {% block contactView %}{% endblock %}
+    </div>
+</body>
+
+</html>
